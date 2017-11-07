@@ -15,14 +15,14 @@ services:
       restart_policy:
         condition: on-failure
   db:
-    image: postgres:9.4
+    image: microsoft/mssql-server-linux:latest
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/sql
     networks:
       - backend
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.node.labels.os==windows]
   vote:
     image: dockersamples/examplevotingapp_vote:before
     ports:
